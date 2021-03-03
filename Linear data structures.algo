@@ -1,0 +1,37 @@
+ALGORITHM sum_of_distinct
+VAR
+   tab1 : ARRAY_OF INTEGER[10];
+   tab2 : ARRAY_OF INTEGER[10];
+   sum,i:INTEGER:=0
+   count:INTEGER:=1
+   hash_tab:HASH_TABLE<INTEGER ,INTEGER>
+BEGIN
+    FOR i FROM 0 TO len(tab1)-1 STEP 1  DO
+        hash_tab.insert(tab1[i],1)
+    END_FOR
+    FOR i FROM 0 TO len(tab2)-1 STEP 1  DO
+        IF (hash_tab.lookup(tab2[i])=TRUE) THEN
+               count:=hash_tab.get(tab2[i])
+               hash_tab.insert(tab2[i], count + 1)
+
+        ELSE
+             hash_tab.insert(tab2[i],count)
+        END_IF
+        
+    END_FOR
+
+    FOR i FROM 0 TO len(tab1)-1 STEP 1  DO
+        IF (hash_tab.get(tab1[i])=1) THEN
+        sum:=sum+tab1[i]
+        END_IF
+    END_FOR
+
+
+    FOR i FROM 0 TO len(tab2)-1 STEP 1  DO
+         IF (hash_tab.get(tab2[i])=1) THEN
+        sum:=sum+tab2[i]
+        END_IF
+    write ("The sum of the distinct elements:" ,sum)
+    END_FOR
+
+END
